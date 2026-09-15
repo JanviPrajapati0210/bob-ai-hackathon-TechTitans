@@ -9,7 +9,7 @@
 # =============================================================================
 
 team:
-  name: "CrisisAI Team"                             # REQUIRED — e.g., "Orion Squad"
+  name: "TechTitans Team"                             # REQUIRED — e.g., "Orion Squad"
   track: "AI"                            # REQUIRED — one of: AI | DevOps | Sustainability | Open
   lead:
     name: "Janvi Prajapati"                           # REQUIRED — e.g., "Alice Chen"

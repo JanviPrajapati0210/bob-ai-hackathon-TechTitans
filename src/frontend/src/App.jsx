@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import DemoControlBar from './components/DemoControlBar';
 import IncidentCard from './components/IncidentCard';
 import IncidentMap from './components/IncidentMap';
 import IncidentDetail from './components/IncidentDetail';
 import ReportSubmitModal from './components/ReportSubmitModal';
+import ReportsStreamView from './components/ReportsStreamView';
+import AnalyticsView from './components/AnalyticsView';
+import AiSandboxView from './components/AiSandboxView';
 import { 
   fetchStats, 
   fetchIncidents, 
@@ -33,10 +36,31 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   
+  // Page / Tab state: 'command_center' | 'reports_stream' | 'analytics' | 'ai_sandbox'
+  const [activeTab, setActiveTab] = useState('command_center');
+
+  // Theme state: 'dark' | 'light'
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('crisisai_theme') || 'dark';
+  });
+
+  // Auto-refresh state
+  const [autoRefresh, setAutoRefresh] = useState(false);
+  
   const [loading, setLoading] = useState(true);
   const [isSeeding, setIsSeeding] = useState(false);
   const [isSubmitOpen, setIsSubmitOpen] = useState(false);
   const [notification, setNotification] = useState(null);
+
+  // Apply theme to document
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('crisisai_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
 
   const loadData = async () => {
     try {
@@ -54,7 +78,6 @@ export default function App() {
       // Auto-select first incident if none selected
       if (incidentsData.length > 0) {
         if (!selectedIncident || !incidentsData.find(i => i.id === selectedIncident.id)) {
-          // Fetch full detail with reports
           const detail = await fetchIncidentDetail(incidentsData[0].id);
           setSelectedIncident(detail);
         } else {
@@ -75,6 +98,34 @@ export default function App() {
     loadData();
   }, [selectedUrgency, selectedCategory]);
 
+  // Auto-refresh interval
+  useEffect(() => {
+    let intervalId;
+    if (autoRefresh) {
+      intervalId = setInterval(() => {
+        loadData();
+      }, 12000);
+    }
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [autoRefresh, selectedUrgency, selectedCategory]);
+
+  // Global Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Focus search on '/' key press if not typing in an input
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        setActiveTab('command_center');
+        const searchInput = document.getElementById('command-search-input');
+        if (searchInput) searchInput.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const handleSelectIncident = async (incident) => {
     try {
       const detail = await fetchIncidentDetail(incident.id);
@@ -82,6 +133,16 @@ export default function App() {
     } catch (err) {
       console.error('Failed to load detail:', err);
       setSelectedIncident(incident);
+    }
+  };
+
+  const handleSelectIncidentById = async (incidentId) => {
+    setActiveTab('command_center');
+    try {
+      const detail = await fetchIncidentDetail(incidentId);
+      setSelectedIncident(detail);
+    } catch (err) {
+      console.error('Failed to load incident detail by ID:', err);
     }
   };
 
@@ -133,6 +194,27 @@ export default function App() {
     }
   };
 
+  const handleExportData = () => {
+    const exportPayload = {
+      exported_at: new Date().toISOString(),
+      summary_stats: stats,
+      incidents: incidents
+    };
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportPayload, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `crisis_ai_dispatch_${new Date().toISOString().slice(0, 10)}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+
+    setNotification({
+      type: 'info',
+      text: 'Incident intelligence summary exported successfully.'
+    });
+    setTimeout(() => setNotification(null), 3000);
+  };
+
   const filteredIncidents = incidents.filter(i => {
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase();
@@ -145,7 +227,7 @@ export default function App() {
   });
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#0a0f1d' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-primary)' }}>
       {/* Top Navbar */}
       <Navbar
         stats={stats}
@@ -154,17 +236,13 @@ export default function App() {
         onRefresh={loadData}
         onReset={handleReset}
         isSeeding={isSeeding}
-      />
-
-      {/* Filter and Search Bar */}
-      <DemoControlBar
-        selectedUrgency={selectedUrgency}
-        onSelectUrgency={setSelectedUrgency}
-        selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        incidentsCount={filteredIncidents.length}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        autoRefresh={autoRefresh}
+        onToggleAutoRefresh={() => setAutoRefresh(!autoRefresh)}
+        onExportData={handleExportData}
       />
 
       {/* Notification Toast */}
@@ -173,90 +251,122 @@ export default function App() {
           background: notification.type === 'success' 
             ? 'linear-gradient(90deg, rgba(16, 185, 129, 0.2) 0%, rgba(15, 98, 254, 0.2) 100%)' 
             : (notification.type === 'error' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(56, 189, 248, 0.2)'),
-          borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
+          borderBottom: '1px solid var(--border-color)',
           padding: '0.65rem 1.5rem',
           fontSize: '0.85rem',
           fontWeight: 600,
-          color: '#f8fafc',
+          color: 'var(--text-primary)',
           display: 'flex',
           alignItems: 'center',
           gap: '0.5rem'
         }}>
-          <Sparkles size={16} color="#38bdf8" />
+          <Sparkles size={16} color="var(--ibm-cyan)" />
           <span>{notification.text}</span>
         </div>
       )}
 
-      {/* Main Content Layout */}
-      <div style={{
-        flex: 1,
-        display: 'grid',
-        gridTemplateColumns: 'minmax(360px, 1.15fr) minmax(420px, 1.35fr)',
-        gap: '1.25rem',
-        padding: '1.25rem 1.5rem',
-        maxWidth: '1800px',
-        width: '100%',
-        margin: '0 auto',
-        boxSizing: 'border-box'
-      }}>
-        {/* Left Column: Priority Feed */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', height: 'calc(100vh - 165px)', overflowY: 'auto', paddingRight: '0.25rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 0.25rem' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              PRIORITIZED INCIDENT DISPATCH FEED
-            </span>
-            <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
-              Ranked by AI Severity & Multi-Source Volume
-            </span>
-          </div>
+      {/* PAGE 1: Operational Command Center */}
+      {activeTab === 'command_center' && (
+        <>
+          {/* Filter and Search Bar */}
+          <DemoControlBar
+            selectedUrgency={selectedUrgency}
+            onSelectUrgency={setSelectedUrgency}
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            incidentsCount={filteredIncidents.length}
+          />
 
-          {filteredIncidents.length === 0 ? (
-            <div style={{
-              background: 'rgba(18, 26, 47, 0.6)',
-              borderRadius: '12px',
-              border: '1px dashed rgba(255, 255, 255, 0.1)',
-              padding: '3rem 1.5rem',
-              textAlign: 'center',
-              color: '#64748b'
-            }}>
-              <AlertTriangle size={32} color="#f59e0b" style={{ margin: '0 auto 0.75rem' }} />
-              <p style={{ fontWeight: 600, color: '#cbd5e1' }}>No incidents match your filter.</p>
-              <p style={{ fontSize: '0.8rem', marginTop: '0.25rem' }}>
-                Click <strong>"Run 50-Report Demo"</strong> above to test the multi-source emergency pipeline.
-              </p>
+          {/* Main Content Layout */}
+          <div style={{
+            flex: 1,
+            display: 'grid',
+            gridTemplateColumns: 'minmax(360px, 1.15fr) minmax(420px, 1.35fr)',
+            gap: '1.25rem',
+            padding: '1.25rem 1.5rem',
+            maxWidth: '1800px',
+            width: '100%',
+            margin: '0 auto',
+            boxSizing: 'border-box'
+          }}>
+            {/* Left Column: Priority Feed */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', height: 'calc(100vh - 195px)', overflowY: 'auto', paddingRight: '0.25rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 0.25rem' }}>
+                <span style={{ fontSize: '0.82rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  PRIORITIZED INCIDENT DISPATCH FEED
+                </span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                  Ranked by AI Severity & Multi-Source Volume
+                </span>
+              </div>
+
+              {filteredIncidents.length === 0 ? (
+                <div style={{
+                  background: 'var(--bg-card)',
+                  borderRadius: '12px',
+                  border: '1px dashed var(--border-color)',
+                  padding: '3rem 1.5rem',
+                  textAlign: 'center',
+                  color: 'var(--text-muted)',
+                  boxShadow: 'var(--card-shadow)'
+                }}>
+                  <AlertTriangle size={32} color="#f59e0b" style={{ margin: '0 auto 0.75rem' }} />
+                  <p style={{ fontWeight: 600, color: 'var(--text-primary)' }}>No incidents match your filter.</p>
+                  <p style={{ fontSize: '0.8rem', marginTop: '0.25rem' }}>
+                    Click <strong>"Run 50-Report Demo"</strong> above to test the multi-source emergency pipeline.
+                  </p>
+                </div>
+              ) : (
+                filteredIncidents.map((incident, idx) => (
+                  <IncidentCard
+                    key={incident.id}
+                    incident={incident}
+                    rank={idx + 1}
+                    isSelected={selectedIncident && selectedIncident.id === incident.id}
+                    onSelect={handleSelectIncident}
+                  />
+                ))
+              )}
             </div>
-          ) : (
-            filteredIncidents.map((incident, idx) => (
-              <IncidentCard
-                key={incident.id}
-                incident={incident}
-                rank={idx + 1}
-                isSelected={selectedIncident && selectedIncident.id === incident.id}
-                onSelect={handleSelectIncident}
+
+            {/* Right Column: Tactical Map + Incident Detail */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', height: 'calc(100vh - 195px)', overflowY: 'auto', paddingRight: '0.25rem' }}>
+              {/* Tactical Geo-Grid Map */}
+              <IncidentMap
+                incidents={incidents}
+                selectedIncident={selectedIncident}
+                onSelectIncident={handleSelectIncident}
               />
-            ))
-          )}
-        </div>
 
-        {/* Right Column: Tactical Map + Incident Detail */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', height: 'calc(100vh - 165px)', overflowY: 'auto', paddingRight: '0.25rem' }}>
-          {/* Tactical Geo-Grid Map */}
-          <IncidentMap
-            incidents={incidents}
-            selectedIncident={selectedIncident}
-            onSelectIncident={handleSelectIncident}
-          />
+              {/* Detailed Incident View with AI Evidence & Recommended Action */}
+              <IncidentDetail
+                incident={selectedIncident}
+                onStatusChange={(updated) => {
+                  setSelectedIncident(updated);
+                  loadData();
+                }}
+              />
+            </div>
+          </div>
+        </>
+      )}
 
-          {/* Detailed Incident View with AI Evidence & Recommended Action */}
-          <IncidentDetail
-            incident={selectedIncident}
-            onStatusChange={(updated) => {
-              setSelectedIncident(updated);
-              loadData();
-            }}
-          />
-        </div>
-      </div>
+      {/* PAGE 2: Raw Ingested Reports Stream */}
+      {activeTab === 'reports_stream' && (
+        <ReportsStreamView onSelectIncidentById={handleSelectIncidentById} />
+      )}
+
+      {/* PAGE 3: Analytics & Model Metrics */}
+      {activeTab === 'analytics' && (
+        <AnalyticsView stats={stats} incidents={incidents} />
+      )}
+
+      {/* PAGE 4: AI Sandbox & Classification Playground */}
+      {activeTab === 'ai_sandbox' && (
+        <AiSandboxView onReportSubmitted={loadData} />
+      )}
 
       {/* Citizen Report Modal */}
       <ReportSubmitModal

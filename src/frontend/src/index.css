@@ -1,16 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
-:root {
+:root, [data-theme='dark'] {
   --bg-primary: #0a0f1d;
   --bg-secondary: #11192e;
   --bg-card: rgba(18, 26, 47, 0.85);
   --bg-card-hover: rgba(26, 38, 68, 0.95);
+  --bg-card-solid: #121a2f;
+  --bg-input: rgba(30, 41, 59, 0.6);
+  --bg-input-focus: rgba(15, 23, 42, 0.9);
+  --bg-header: rgba(15, 23, 42, 0.95);
+  --bg-controlbar: rgba(15, 23, 42, 0.8);
+  --bg-tag: rgba(30, 41, 59, 0.7);
   --border-color: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.05);
   --border-accent: rgba(56, 189, 248, 0.3);
   
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
+  --text-highlight: #ffffff;
   
   --critical: #ef4444;
   --critical-bg: rgba(239, 68, 68, 0.15);
@@ -31,17 +39,64 @@
   --ibm-blue: #0f62fe;
   --ibm-cyan: #1192e8;
   --watsonx-purple: #8a3ffc;
+  --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  --modal-bg: #0f172a;
+}
+
+[data-theme='light'] {
+  --bg-primary: #f1f5f9;
+  --bg-secondary: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-card-hover: rgba(248, 250, 252, 1);
+  --bg-card-solid: #ffffff;
+  --bg-input: #ffffff;
+  --bg-input-focus: #ffffff;
+  --bg-header: rgba(255, 255, 255, 0.96);
+  --bg-controlbar: rgba(241, 245, 249, 0.9);
+  --bg-tag: rgba(226, 232, 240, 0.9);
+  --border-color: rgba(15, 23, 42, 0.1);
+  --border-subtle: rgba(15, 23, 42, 0.06);
+  --border-accent: rgba(15, 98, 254, 0.35);
+  
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-highlight: #020617;
+  
+  --critical: #dc2626;
+  --critical-bg: rgba(239, 68, 68, 0.12);
+  --critical-border: rgba(239, 68, 68, 0.35);
+  
+  --high: #ea580c;
+  --high-bg: rgba(249, 115, 22, 0.12);
+  --high-border: rgba(249, 115, 22, 0.35);
+  
+  --medium: #ca8a04;
+  --medium-bg: rgba(234, 179, 8, 0.12);
+  --medium-border: rgba(234, 179, 8, 0.35);
+  
+  --low: #059669;
+  --low-bg: rgba(16, 185, 129, 0.12);
+  --low-border: rgba(16, 185, 129, 0.35);
+  
+  --ibm-blue: #0f62fe;
+  --ibm-cyan: #0284c7;
+  --watsonx-purple: #7c3aed;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --modal-bg: #ffffff;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
 }
 
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
+
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;

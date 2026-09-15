@@ -61,6 +61,12 @@ export async function seedDemoData() {
   return res.json();
 }
 
+export async function fetchReports() {
+  const res = await fetch(`${API_BASE}/reports`);
+  if (!res.ok) throw new Error('Failed to fetch reports');
+  return res.json();
+}
+
 export async function resetDatabase() {
   const res = await fetch(`${API_BASE}/demo/reset`, {
     method: 'POST'
@@ -68,3 +74,4 @@ export async function resetDatabase() {
   if (!res.ok) throw new Error('Failed to reset database');
   return res.json();
 }
+

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Send, Sparkles, AlertCircle, CheckCircle2, Copy } from 'lucide-react';
 import { submitReport, analyzeReport } from '../services/api';
 
@@ -11,6 +11,16 @@ export default function ReportSubmitModal({ isOpen, onClose, onReportSubmitted }
   const [previewAnalysis, setPreviewAnalysis] = useState(null);
   const [submitResult, setSubmitResult] = useState(null);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -92,33 +102,33 @@ export default function ReportSubmitModal({ isOpen, onClose, onReportSubmitted }
       backdropFilter: 'blur(6px)'
     }}>
       <div style={{
-        background: '#0f172a',
+        background: 'var(--modal-bg)',
         width: '100%',
         maxWidth: '650px',
         borderRadius: '14px',
-        border: '1px solid rgba(56, 189, 248, 0.3)',
-        boxShadow: '0 20px 50px rgba(0, 0, 0, 0.8)',
+        border: '1px solid var(--border-accent)',
+        boxShadow: 'var(--card-shadow)',
         overflow: 'hidden'
       }}>
         {/* Modal Header */}
         <div style={{
           padding: '1.25rem 1.5rem',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          borderBottom: '1px solid var(--border-subtle)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
         }}>
           <div>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#f8fafc' }}>
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-primary)' }}>
               Citizen Emergency Report Ingestion
             </h3>
-            <p style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '0.2rem' }}>
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
               Test live NLP extraction, embedding similarity search, and automated incident clustering.
             </p>
           </div>
           <button
             onClick={onClose}
-            style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer' }}
+            style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}
           >
             <X size={20} />
           </button>
@@ -128,7 +138,7 @@ export default function ReportSubmitModal({ isOpen, onClose, onReportSubmitted }
         <div style={{ padding: '1.5rem', maxHeight: '75vh', overflowY: 'auto' }}>
           {/* Quick Presets */}
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Quick Test Presets (Click to load)
             </label>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.4rem' }}>
@@ -142,11 +152,11 @@ export default function ReportSubmitModal({ isOpen, onClose, onReportSubmitted }
                     setSubmitResult(null);
                   }}
                   style={{
-                    background: 'rgba(30, 41, 59, 0.7)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    background: 'var(--bg-input)',
+                    border: '1px solid var(--border-color)',
                     borderRadius: '6px',
                     padding: '0.35rem 0.6rem',
-                    color: '#93c5fd',
+                    color: 'var(--ibm-cyan)',
                     fontSize: '0.75rem',
                     fontWeight: 600
                   }}
@@ -159,7 +169,7 @@ export default function ReportSubmitModal({ isOpen, onClose, onReportSubmitted }
 
           <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>
                 Emergency Report Text
               </label>
               <textarea
@@ -171,10 +181,10 @@ export default function ReportSubmitModal({ isOpen, onClose, onReportSubmitted }
                 style={{
                   width: '100%',
                   padding: '0.75rem',
-                  background: 'rgba(15, 23, 42, 0.9)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  background: 'var(--bg-input)',
+                  border: '1px solid var(--border-color)',
                   borderRadius: '8px',
-                  color: '#f8fafc',
+                  color: 'var(--text-primary)',
                   fontSize: '0.88rem',
                   outline: 'none',
                   resize: 'vertical'
@@ -184,7 +194,7 @@ export default function ReportSubmitModal({ isOpen, onClose, onReportSubmitted }
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1.25rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.78rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
+                <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>
                   Reporter
                 </label>
                 <input
@@ -194,17 +204,17 @@ export default function ReportSubmitModal({ isOpen, onClose, onReportSubmitted }
                   style={{
                     width: '100%',
                     padding: '0.5rem 0.75rem',
-                    background: 'rgba(15, 23, 42, 0.9)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    background: 'var(--bg-input)',
+                    border: '1px solid var(--border-color)',
                     borderRadius: '6px',
-                    color: '#f8fafc',
+                    color: 'var(--text-primary)',
                     fontSize: '0.82rem'
                   }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.78rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
+                <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>
                   Source Channel
                 </label>
                 <select
@@ -213,10 +223,10 @@ export default function ReportSubmitModal({ isOpen, onClose, onReportSubmitted }
                   style={{
                     width: '100%',
                     padding: '0.5rem 0.75rem',
-                    background: 'rgba(15, 23, 42, 0.9)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    background: 'var(--bg-input)',
+                    border: '1px solid var(--border-color)',
                     borderRadius: '6px',
-                    color: '#f8fafc',
+                    color: 'var(--text-primary)',
                     fontSize: '0.82rem'
                   }}
                 >
@@ -236,8 +246,8 @@ export default function ReportSubmitModal({ isOpen, onClose, onReportSubmitted }
                 onClick={handleAnalyze}
                 disabled={isAnalyzing || !reportText.trim()}
                 style={{
-                  background: 'rgba(138, 63, 252, 0.2)',
-                  color: '#c084fc',
+                  background: 'rgba(138, 63, 252, 0.18)',
+                  color: '#a855f7',
                   border: '1px solid rgba(138, 63, 252, 0.4)',
                   padding: '0.55rem 1rem',
                   borderRadius: '8px',
@@ -277,20 +287,20 @@ export default function ReportSubmitModal({ isOpen, onClose, onReportSubmitted }
           {/* AI Pre-Analysis Output Card */}
           {previewAnalysis && (
             <div style={{
-              background: 'rgba(15, 23, 42, 0.95)',
+              background: 'var(--bg-input)',
               border: '1px solid rgba(168, 85, 247, 0.4)',
               borderRadius: '8px',
               padding: '0.85rem 1rem',
               marginTop: '1rem'
             }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#c084fc', marginBottom: '0.4rem' }}>
+              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#a855f7', marginBottom: '0.4rem' }}>
                 AI EXTRACTION PREVIEW (Watsonx Granite / Local NLP)
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem', fontSize: '0.8rem' }}>
-                <div><strong>Type:</strong> <span style={{ color: '#38bdf8' }}>{previewAnalysis.incident_type}</span></div>
-                <div><strong>Location:</strong> <span style={{ color: '#38bdf8' }}>{previewAnalysis.location}</span></div>
-                <div><strong>Urgency:</strong> <span style={{ color: '#f87171' }}>{previewAnalysis.urgency}</span></div>
-                <div><strong>Category:</strong> <span style={{ color: '#fbbf24' }}>{previewAnalysis.category}</span></div>
+                <div><strong>Type:</strong> <span style={{ color: 'var(--ibm-cyan)' }}>{previewAnalysis.incident_type}</span></div>
+                <div><strong>Location:</strong> <span style={{ color: 'var(--ibm-cyan)' }}>{previewAnalysis.location}</span></div>
+                <div><strong>Urgency:</strong> <span style={{ color: '#ef4444' }}>{previewAnalysis.urgency}</span></div>
+                <div><strong>Category:</strong> <span style={{ color: '#f59e0b' }}>{previewAnalysis.category}</span></div>
                 <div><strong>People at Risk:</strong> {previewAnalysis.people_at_risk ? '🚨 YES' : 'No'}</div>
                 <div><strong>Est. Affected:</strong> {previewAnalysis.people_count}</div>
               </div>
@@ -307,21 +317,21 @@ export default function ReportSubmitModal({ isOpen, onClose, onReportSubmitted }
               marginTop: '1rem'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
-                <CheckCircle2 size={18} color={submitResult.is_duplicate ? '#38bdf8' : '#34d399'} />
-                <span style={{ fontSize: '0.9rem', fontWeight: 800, color: '#f8fafc' }}>
+                <CheckCircle2 size={18} color={submitResult.is_duplicate ? 'var(--ibm-cyan)' : '#34d399'} />
+                <span style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-primary)' }}>
                   {submitResult.is_duplicate 
                     ? `Duplicate Detected! Merged into Incident #${submitResult.incident.id}`
                     : `Novel Incident Detected! Created Incident #${submitResult.incident.id}`}
                 </span>
               </div>
-              <p style={{ fontSize: '0.8rem', color: '#cbd5e1' }}>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                 Cosine Similarity Score: <strong>{Math.round(submitResult.similarity_score * 100)}%</strong> • Updated Report Count: <strong>{submitResult.incident.report_count}</strong>
               </p>
             </div>
           )}
 
           {error && (
-            <div style={{ background: 'rgba(239, 68, 68, 0.2)', border: '1px solid rgba(239, 68, 68, 0.4)', padding: '0.75rem', borderRadius: '8px', color: '#fca5a5', marginTop: '1rem', fontSize: '0.82rem' }}>
+            <div style={{ background: 'var(--critical-bg)', border: '1px solid var(--critical-border)', padding: '0.75rem', borderRadius: '8px', color: '#ef4444', marginTop: '1rem', fontSize: '0.82rem' }}>
               <AlertCircle size={15} style={{ display: 'inline', marginRight: '6px' }} />
               {error}
             </div>

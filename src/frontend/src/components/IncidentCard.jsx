@@ -35,7 +35,7 @@ export default function IncidentCard({
     if (type.includes('Fire')) return <Flame size={14} color="#f97316" />;
     if (type.includes('Power') || type.includes('Electrical')) return <Zap size={14} color="#eab308" />;
     if (type.includes('Collapse') || type.includes('Road') || type.includes('Bridge')) return <Construction size={14} color="#fb923c" />;
-    return <Activity size={14} color="#94a3b8" />;
+    return <Activity size={14} color="var(--text-muted)" />;
   };
 
   return (
@@ -45,21 +45,21 @@ export default function IncidentCard({
         padding: '1rem',
         borderRadius: '10px',
         background: isSelected 
-          ? 'rgba(30, 58, 138, 0.45)' 
-          : 'rgba(18, 26, 47, 0.85)',
+          ? 'rgba(15, 98, 254, 0.15)' 
+          : 'var(--bg-card)',
         border: isSelected 
-          ? '1.5px solid #38bdf8' 
-          : '1px solid rgba(255, 255, 255, 0.08)',
+          ? '1.5px solid var(--ibm-cyan)' 
+          : '1px solid var(--border-color)',
         cursor: 'pointer',
         transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-        boxShadow: isSelected ? '0 0 16px rgba(56, 189, 248, 0.25)' : 'none',
+        boxShadow: isSelected ? '0 0 16px rgba(56, 189, 248, 0.25)' : 'var(--card-shadow)',
         position: 'relative'
       }}
       onMouseEnter={(e) => {
-        if (!isSelected) e.currentTarget.style.background = 'rgba(26, 38, 68, 0.95)';
+        if (!isSelected) e.currentTarget.style.background = 'var(--bg-card-hover)';
       }}
       onMouseLeave={(e) => {
-        if (!isSelected) e.currentTarget.style.background = 'rgba(18, 26, 47, 0.85)';
+        if (!isSelected) e.currentTarget.style.background = 'var(--bg-card)';
       }}
     >
       {/* Top row: Rank, Urgency, Priority Score */}
@@ -68,8 +68,8 @@ export default function IncidentCard({
           <span style={{
             fontSize: '0.75rem',
             fontWeight: 800,
-            color: '#64748b',
-            background: 'rgba(255, 255, 255, 0.05)',
+            color: 'var(--text-muted)',
+            background: 'var(--bg-tag)',
             padding: '0.15rem 0.45rem',
             borderRadius: '4px'
           }}>
@@ -96,11 +96,11 @@ export default function IncidentCard({
         <div style={{
           fontSize: '0.72rem',
           fontWeight: 700,
-          color: '#38bdf8',
+          color: 'var(--ibm-cyan)',
           background: 'rgba(56, 189, 248, 0.1)',
           padding: '0.15rem 0.5rem',
           borderRadius: '4px',
-          border: '1px solid rgba(56, 189, 248, 0.2)'
+          border: '1px solid var(--border-accent)'
         }}>
           Priority: {Math.round(incident.priority_score)}
         </div>
@@ -110,7 +110,7 @@ export default function IncidentCard({
       <h3 style={{
         fontSize: '0.98rem',
         fontWeight: 700,
-        color: '#f8fafc',
+        color: 'var(--text-primary)',
         lineHeight: 1.35,
         marginBottom: '0.4rem'
       }}>
@@ -123,10 +123,10 @@ export default function IncidentCard({
         alignItems: 'center',
         gap: '0.35rem',
         fontSize: '0.8rem',
-        color: '#94a3b8',
+        color: 'var(--text-secondary)',
         marginBottom: '0.65rem'
       }}>
-        <MapPin size={13} color="#38bdf8" />
+        <MapPin size={13} color="var(--ibm-cyan)" />
         <span>{incident.location}</span>
       </div>
 
@@ -136,13 +136,13 @@ export default function IncidentCard({
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingTop: '0.5rem',
-        borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+        borderTop: '1px solid var(--border-subtle)',
         fontSize: '0.75rem'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
           <span style={{
             background: 'rgba(56, 189, 248, 0.12)',
-            color: '#7dd3fc',
+            color: 'var(--ibm-cyan)',
             padding: '0.15rem 0.5rem',
             borderRadius: '4px',
             fontWeight: 700
@@ -152,8 +152,8 @@ export default function IncidentCard({
 
           {incident.people_at_risk && (
             <span style={{
-              background: 'rgba(239, 68, 68, 0.15)',
-              color: '#fca5a5',
+              background: 'var(--critical-bg)',
+              color: '#ef4444',
               padding: '0.15rem 0.45rem',
               borderRadius: '4px',
               fontWeight: 700,
@@ -167,7 +167,7 @@ export default function IncidentCard({
         </div>
 
         <div style={{
-          color: incident.status === 'Active' ? '#f59e0b' : (incident.status === 'In Progress' ? '#38bdf8' : '#10b981'),
+          color: incident.status === 'Active' ? '#f59e0b' : (incident.status === 'In Progress' ? 'var(--ibm-cyan)' : '#10b981'),
           fontWeight: 600
         }}>
           {incident.status}

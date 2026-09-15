@@ -29,9 +29,9 @@ export default function DemoControlBar({
 
   return (
     <div style={{
-      background: 'rgba(15, 23, 42, 0.8)',
-      padding: '0.875rem 1.5rem',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
+      background: 'var(--bg-controlbar)',
+      padding: '0.75rem 1.5rem',
+      borderBottom: '1px solid var(--border-color)',
       display: 'flex',
       flexWrap: 'wrap',
       alignItems: 'center',
@@ -44,19 +44,20 @@ export default function DemoControlBar({
         minWidth: '260px',
         flex: '1 1 280px'
       }}>
-        <Search size={16} color="#64748b" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
+        <Search size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
         <input
           type="text"
-          placeholder="Filter by keyword, location, or incident..."
+          placeholder="Filter by keyword, location, or incident (Press '/' to focus)..."
           value={searchQuery}
+          id="command-search-input"
           onChange={(e) => onSearchChange(e.target.value)}
           style={{
             width: '100%',
             padding: '0.5rem 0.85rem 0.5rem 2.25rem',
-            background: 'rgba(30, 41, 59, 0.6)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'var(--bg-input)',
+            border: '1px solid var(--border-color)',
             borderRadius: '8px',
-            color: '#f8fafc',
+            color: 'var(--text-primary)',
             fontSize: '0.85rem',
             outline: 'none'
           }}
@@ -72,13 +73,13 @@ export default function DemoControlBar({
               key={opt.value}
               onClick={() => onSelectUrgency(opt.value)}
               style={{
-                padding: '0.4rem 0.75rem',
+                padding: '0.38rem 0.75rem',
                 borderRadius: '6px',
                 fontSize: '0.78rem',
                 fontWeight: 600,
-                background: isActive ? 'rgba(56, 189, 248, 0.2)' : 'rgba(30, 41, 59, 0.4)',
-                color: isActive ? '#38bdf8' : '#94a3b8',
-                border: isActive ? '1px solid rgba(56, 189, 248, 0.4)' : '1px solid rgba(255, 255, 255, 0.05)',
+                background: isActive ? 'rgba(56, 189, 248, 0.2)' : 'var(--bg-input)',
+                color: isActive ? 'var(--ibm-cyan)' : 'var(--text-secondary)',
+                border: isActive ? '1px solid var(--border-accent)' : '1px solid var(--border-color)',
               }}
             >
               {opt.label}
@@ -89,16 +90,16 @@ export default function DemoControlBar({
 
       {/* Category Dropdown */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-        <Layers size={15} color="#94a3b8" />
+        <Layers size={15} color="var(--text-muted)" />
         <select
           value={selectedCategory}
           onChange={(e) => onSelectCategory(e.target.value)}
           style={{
-            padding: '0.45rem 0.75rem',
-            background: 'rgba(30, 41, 59, 0.8)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            padding: '0.42rem 0.75rem',
+            background: 'var(--bg-input)',
+            border: '1px solid var(--border-color)',
             borderRadius: '6px',
-            color: '#cbd5e1',
+            color: 'var(--text-secondary)',
             fontSize: '0.8rem',
             outline: 'none'
           }}
@@ -110,7 +111,7 @@ export default function DemoControlBar({
           ))}
         </select>
 
-        <span style={{ fontSize: '0.75rem', color: '#64748b', marginLeft: '0.5rem' }}>
+        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginLeft: '0.5rem' }}>
           Showing <strong>{incidentsCount}</strong> incidents
         </span>
       </div>
