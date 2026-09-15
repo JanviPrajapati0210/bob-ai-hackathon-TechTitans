@@ -390,5 +390,13 @@
     "ground_truth_urgency": "LOW",
     "ground_truth_type": "Streetlight Outage",
     "ground_truth_incident": 18
+  },
+  {
+    "text": "Main Market Plaza fire is spreading. Fire crew needed immediately. Shops are burning.",
+    "reporter": "Volunteer B",
+    "source": "Web",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Structure Fire",
+    "ground_truth_incident": 2
   }
 ]
