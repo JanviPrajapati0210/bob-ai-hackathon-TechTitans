@@ -1,16 +1,1 @@
-REPLACE_THIS_LINE_WITH_YOUR_VIDEO_URL
-
-Instructions: Record a 3-5 minute demo video showing the running application.
-Replace the first line above with your actual video URL before final submission.
-
-Accepted platforms:
-  - YouTube (public or unlisted)   https://youtu.be/...
-  - Loom                           https://www.loom.com/share/...
-  - IBM Box                        https://ibm.box.com/s/...
-  - Google Drive (Anyone with link can view)
-
-Video requirements:
-  - Length: 3-5 minutes
-  - Show: backend running, frontend dashboard, seed demo, incident details
-  - Narrate the 50-reports -> 18-incidents flow
-  - Show the Railway Station flood incident (11 reports, Critical, rescue recommendation)
+https://drive.google.com/file/d/1UDNJ3Q7rSFbiHyWJFEiTQMn7W_CElucY/view?usp=drivesdk
