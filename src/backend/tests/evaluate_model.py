@@ -27,7 +27,7 @@ def run_evaluation():
 
     print("=" * 75)
     print(" CRISISAI MACHINE LEARNING & PREDICTION ACCURACY EVALUATION")
-    print(" Grounded on Kaggle Disaster Tweets & CrisisLex Benchmark Dataset")
+    print(" Evaluated on the 50-record curated synthetic crisis dataset (see app/data/)")
     print("=" * 75)
     print(f"Total Evaluated Reports : {len(records)}")
 

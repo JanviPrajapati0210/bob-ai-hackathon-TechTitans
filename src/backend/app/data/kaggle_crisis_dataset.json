@@ -1,0 +1,394 @@
+[
+  {
+    "text": "Water has entered our house near the railway station. Two elderly people are trapped and cannot move.",
+    "reporter": "Citizen A",
+    "source": "SMS",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Flood",
+    "ground_truth_incident": 1
+  },
+  {
+    "text": "Railway station east exit is completely submerged. People are stranded waiting for boats.",
+    "reporter": "Citizen B",
+    "source": "Mobile App",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Flood",
+    "ground_truth_incident": 1
+  },
+  {
+    "text": "Water level at railway station is chest height. Elderly residents are unable to evacuate.",
+    "reporter": "Field Team",
+    "source": "Radio",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Flood",
+    "ground_truth_incident": 1
+  },
+  {
+    "text": "Flash flood at railway station. At least 5 elderly people trapped in the waiting area.",
+    "reporter": "Citizen C",
+    "source": "Web",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Flood",
+    "ground_truth_incident": 1
+  },
+  {
+    "text": "Flood water is rising rapidly near the railway station. Families are trapped on the platform.",
+    "reporter": "Citizen D",
+    "source": "SMS",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Flood",
+    "ground_truth_incident": 1
+  },
+  {
+    "text": "Railway station is inundated. Elderly people stranded on benches with water rising.",
+    "reporter": "Citizen E",
+    "source": "Mobile App",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Flood",
+    "ground_truth_incident": 1
+  },
+  {
+    "text": "Severe flooding at railway station. People are stranded and require immediate water rescue.",
+    "reporter": "Volunteer",
+    "source": "Web",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Flood",
+    "ground_truth_incident": 1
+  },
+  {
+    "text": "Railway station flooded. Train services halted. Elderly passengers trapped near ticket counters.",
+    "reporter": "Citizen F",
+    "source": "SMS",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Flood",
+    "ground_truth_incident": 1
+  },
+  {
+    "text": "Emergency at railway station. Flood water has submerged the main entrance. Trapped people inside.",
+    "reporter": "Citizen G",
+    "source": "Mobile App",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Flood",
+    "ground_truth_incident": 1
+  },
+  {
+    "text": "Railway station completely flooded. Residents trapped, water chest height, rising fast.",
+    "reporter": "Citizen H",
+    "source": "Web",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Flood",
+    "ground_truth_incident": 1
+  },
+  {
+    "text": "Massive flooding at railway station area. Multiple elderly people stranded with no evacuation route.",
+    "reporter": "NGO Worker",
+    "source": "Radio",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Flood",
+    "ground_truth_incident": 1
+  },
+  {
+    "text": "Huge fire at Main Market Plaza! Flames are shooting from the first floor. Smoke everywhere.",
+    "reporter": "Shopkeeper",
+    "source": "Mobile App",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Structure Fire",
+    "ground_truth_incident": 2
+  },
+  {
+    "text": "Main Market Plaza is on fire. Billowing smoke and people running out of shops.",
+    "reporter": "Passerby",
+    "source": "Web",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Structure Fire",
+    "ground_truth_incident": 2
+  },
+  {
+    "text": "Fire at the market plaza. Multiple storefronts ablaze. Heavy smoke inhalation reported.",
+    "reporter": "Citizen I",
+    "source": "SMS",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Structure Fire",
+    "ground_truth_incident": 2
+  },
+  {
+    "text": "Market plaza is burning. Flames visible from two streets away. Immediate fire response needed.",
+    "reporter": "Field Team",
+    "source": "Radio",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Structure Fire",
+    "ground_truth_incident": 2
+  },
+  {
+    "text": "Gas leak at Metro Industrial Park. Hissing sounds from pipeline. Strong chemical fumes spreading.",
+    "reporter": "Worker A",
+    "source": "SMS",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Gas Leak",
+    "ground_truth_incident": 3
+  },
+  {
+    "text": "Industrial gas leak at Metro Industrial Park. Methane odor very strong. Workers evacuating.",
+    "reporter": "Worker B",
+    "source": "Mobile App",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Gas Leak",
+    "ground_truth_incident": 3
+  },
+  {
+    "text": "Toxic gas leak at Metro Industrial Park. Pipeline ruptured near warehouse 4. Risk of explosion.",
+    "reporter": "Safety Officer",
+    "source": "Radio",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Gas Leak",
+    "ground_truth_incident": 3
+  },
+  {
+    "text": "Riverdale Bridge has large visible cracks on the support pillar. Bridge is vibrating. Unsafe to cross.",
+    "reporter": "Driver A",
+    "source": "Web",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Bridge Structural Damage",
+    "ground_truth_incident": 4
+  },
+  {
+    "text": "Riverdale Bridge pillar is cracked. Structure appears to be collapsing. Barricade the bridge now.",
+    "reporter": "Engineer",
+    "source": "SMS",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Bridge Structural Damage",
+    "ground_truth_incident": 4
+  },
+  {
+    "text": "Building collapse at Sector 4 construction site. Scaffolding fell and slab collapsed on workers.",
+    "reporter": "Site Manager",
+    "source": "Mobile App",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Building Collapse",
+    "ground_truth_incident": 5
+  },
+  {
+    "text": "Workers buried at Sector 4 construction site. Slab collapsed on laborers. Need USAR team immediately.",
+    "reporter": "Foreman",
+    "source": "Radio",
+    "ground_truth_urgency": "CRITICAL",
+    "ground_truth_type": "Building Collapse",
+    "ground_truth_incident": 5
+  },
+  {
+    "text": "Road is blocked because of a fallen tree near XYZ Road. Both lanes are shut.",
+    "reporter": "Motorist A",
+    "source": "Web",
+    "ground_truth_urgency": "HIGH",
+    "ground_truth_type": "Road Blockage",
+    "ground_truth_incident": 6
+  },
+  {
+    "text": "Huge banyan tree fell on XYZ Road. Traffic completely blocked. Chainsaw team required.",
+    "reporter": "Motorist B",
+    "source": "SMS",
+    "ground_truth_urgency": "HIGH",
+    "ground_truth_type": "Road Blockage",
+    "ground_truth_incident": 6
+  },
+  {
+    "text": "Fallen tree blocking XYZ Road entirely. Emergency vehicles cannot pass. Please clear immediately.",
+    "reporter": "Motorist C",
+    "source": "Mobile App",
+    "ground_truth_urgency": "HIGH",
+    "ground_truth_type": "Road Blockage",
+    "ground_truth_incident": 6
+  },
+  {
+    "text": "Power line is down on Oakwood Avenue. Live wire sparking on wet road. Electrocution risk.",
+    "reporter": "Resident A",
+    "source": "Web",
+    "ground_truth_urgency": "HIGH",
+    "ground_truth_type": "Downed Power Line",
+    "ground_truth_incident": 7
+  },
+  {
+    "text": "Downed power cables on Oakwood Avenue. Cables touching wet pavement. Very dangerous.",
+    "reporter": "Resident B",
+    "source": "SMS",
+    "ground_truth_urgency": "HIGH",
+    "ground_truth_type": "Downed Power Line",
+    "ground_truth_incident": 7
+  },
+  {
+    "text": "Multi-vehicle pileup on Highway 101 near Exit 14. Several cars collided. Injuries reported.",
+    "reporter": "Driver B",
+    "source": "Web",
+    "ground_truth_urgency": "HIGH",
+    "ground_truth_type": "Vehicle Collision",
+    "ground_truth_incident": 8
+  },
+  {
+    "text": "Major pileup on Highway 101 exit 14. 5 vehicles involved. People injured. Road blocked.",
+    "reporter": "Witness",
+    "source": "SMS",
+    "ground_truth_urgency": "HIGH",
+    "ground_truth_type": "Vehicle Collision",
+    "ground_truth_incident": 8
+  },
+  {
+    "text": "Water main burst on 5th Avenue. Pipeline burst has created a massive sinkhole. Road collapsing.",
+    "reporter": "Resident C",
+    "source": "Mobile App",
+    "ground_truth_urgency": "HIGH",
+    "ground_truth_type": "Water Main Burst",
+    "ground_truth_incident": 9
+  },
+  {
+    "text": "Broken water main on 5th Avenue. Geyser of water flooding the street. Cars stuck in sinkhole.",
+    "reporter": "Resident D",
+    "source": "Web",
+    "ground_truth_urgency": "HIGH",
+    "ground_truth_type": "Water Main Burst",
+    "ground_truth_incident": 9
+  },
+  {
+    "text": "Wildfire spotted on Pine Hill Ridge. Brush fire spreading fast toward residential area.",
+    "reporter": "Hiker A",
+    "source": "Web",
+    "ground_truth_urgency": "HIGH",
+    "ground_truth_type": "Wildfire",
+    "ground_truth_incident": 10
+  },
+  {
+    "text": "Fire spreading on Pine Hill. Wildfire moving toward the ridge road. Evacuation needed urgently.",
+    "reporter": "Resident E",
+    "source": "SMS",
+    "ground_truth_urgency": "HIGH",
+    "ground_truth_type": "Wildfire",
+    "ground_truth_incident": 10
+  },
+  {
+    "text": "Transformer fire at Tech Park Substation. Electrical fire with heavy smoke. Power outage in sector.",
+    "reporter": "Technician",
+    "source": "Radio",
+    "ground_truth_urgency": "HIGH",
+    "ground_truth_type": "Electrical Fire",
+    "ground_truth_incident": 11
+  },
+  {
+    "text": "Substation transformer burning at Tech Park. Sparks flying. Entire area power is down.",
+    "reporter": "Guard",
+    "source": "Web",
+    "ground_truth_urgency": "HIGH",
+    "ground_truth_type": "Electrical Fire",
+    "ground_truth_incident": 11
+  },
+  {
+    "text": "Traffic lights are flashing red at the Downtown Central Junction. Signals are not working.",
+    "reporter": "Commuter A",
+    "source": "Web",
+    "ground_truth_urgency": "MEDIUM",
+    "ground_truth_type": "Traffic Signal Outage",
+    "ground_truth_incident": 12
+  },
+  {
+    "text": "Downtown traffic signal is completely out at the central junction. Dangerous intersection.",
+    "reporter": "Commuter B",
+    "source": "SMS",
+    "ground_truth_urgency": "MEDIUM",
+    "ground_truth_type": "Traffic Signal Outage",
+    "ground_truth_incident": 12
+  },
+  {
+    "text": "Mudslide on Hillside Road. Large mud flow blocking the road. Vehicles cannot pass.",
+    "reporter": "Driver C",
+    "source": "Mobile App",
+    "ground_truth_urgency": "MEDIUM",
+    "ground_truth_type": "Mudslide",
+    "ground_truth_incident": 13
+  },
+  {
+    "text": "Mudflow on Hillside Road has covered the entire lane. Landslide debris everywhere.",
+    "reporter": "Resident F",
+    "source": "Web",
+    "ground_truth_urgency": "MEDIUM",
+    "ground_truth_type": "Mudslide",
+    "ground_truth_incident": 13
+  },
+  {
+    "text": "Street drainage overflow at Green Valley Sector 9. Roads waterlogged. Vehicles stranded.",
+    "reporter": "Resident G",
+    "source": "SMS",
+    "ground_truth_urgency": "MEDIUM",
+    "ground_truth_type": "Localized Drainage Overflow",
+    "ground_truth_incident": 14
+  },
+  {
+    "text": "Drainage water logged at Sector 9 Green Valley. Entire street knee deep. Traffic impossible.",
+    "reporter": "Resident H",
+    "source": "Web",
+    "ground_truth_urgency": "MEDIUM",
+    "ground_truth_type": "Localized Drainage Overflow",
+    "ground_truth_incident": 14
+  },
+  {
+    "text": "Window shattered on High Street storefront. Glass scattered on pavement. Pedestrian hazard.",
+    "reporter": "Shopkeeper B",
+    "source": "Mobile App",
+    "ground_truth_urgency": "MEDIUM",
+    "ground_truth_type": "Storefront Damage",
+    "ground_truth_incident": 15
+  },
+  {
+    "text": "Glass window broken at High Street shop front. Sharp glass pieces on footpath. Clear urgently.",
+    "reporter": "Passerby B",
+    "source": "Web",
+    "ground_truth_urgency": "MEDIUM",
+    "ground_truth_type": "Storefront Damage",
+    "ground_truth_incident": 15
+  },
+  {
+    "text": "Water level at North Creek Gauge seems slightly higher than usual but flowing smoothly.",
+    "reporter": "Warden A",
+    "source": "Web",
+    "ground_truth_urgency": "LOW",
+    "ground_truth_type": "Flood (Observation)",
+    "ground_truth_incident": 16
+  },
+  {
+    "text": "North Creek water level slightly elevated. Water is flowing smoothly. Monitoring required.",
+    "reporter": "Warden B",
+    "source": "SMS",
+    "ground_truth_urgency": "LOW",
+    "ground_truth_type": "Flood (Observation)",
+    "ground_truth_incident": 16
+  },
+  {
+    "text": "Tree branches overhanging over the road near Maple Street. Trimming required.",
+    "reporter": "Resident I",
+    "source": "Web",
+    "ground_truth_urgency": "LOW",
+    "ground_truth_type": "Hazardous Tree Branches",
+    "ground_truth_incident": 17
+  },
+  {
+    "text": "Low hanging branches touching power cables on Maple Street. Tree trimming needed.",
+    "reporter": "Resident J",
+    "source": "Mobile App",
+    "ground_truth_urgency": "LOW",
+    "ground_truth_type": "Hazardous Tree Branches",
+    "ground_truth_incident": 17
+  },
+  {
+    "text": "Streetlight bulb burnt out near Sunset Boulevard. Road is dark at night. Illumination problem.",
+    "reporter": "Commuter C",
+    "source": "Web",
+    "ground_truth_urgency": "LOW",
+    "ground_truth_type": "Streetlight Outage",
+    "ground_truth_incident": 18
+  },
+  {
+    "text": "Streetlight on Sunset Boulevard is not working. Street illumination is gone after dark.",
+    "reporter": "Commuter D",
+    "source": "SMS",
+    "ground_truth_urgency": "LOW",
+    "ground_truth_type": "Streetlight Outage",
+    "ground_truth_incident": 18
+  }
+]

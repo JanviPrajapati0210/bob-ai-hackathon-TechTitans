@@ -70,7 +70,7 @@ def submit_report(report_in: ReportCreate, db: Session = Depends(get_db)):
     # 2. Query active incidents
     active_incidents = db.query(Incident).filter(Incident.status != "Resolved").all()
 
-    # 3. Text Embedding & Similarity Search (Person 2 Component)
+    # 3. TF-IDF N-gram Similarity & Deduplication (Person 2 Component)
     matched_incident, similarity_score = find_matching_incident(
         report_in.text,
         analysis,
