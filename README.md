@@ -401,17 +401,11 @@ The repository currently contains the configured demo-video reference in:
 demo/demo-video-link.txt
 ```
 
-### Live Demo
 
-The current deployment status is:
+### 🌐 Live Demo
 
-```text
-NOT DEPLOYED
-```
+[**🚀 Open CrisisAI Live Demo**](https://crisisai-frontend.onrender.com/)
 
-The project is therefore intended to be evaluated locally unless a deployment URL is added later.
-
----
 
 ## 🔐 Security & Data Privacy
 
@@ -431,7 +425,6 @@ The project is therefore intended to be evaluated locally unless a deployment UR
 - **Local NLP Fallback:** Local mode is designed for deterministic demonstration and resilience; it does not provide the same broad language understanding as a production foundation model.
 - **SQLite Storage:** SQLite is suitable for the demonstration but should be replaced with a production database for high-concurrency deployments.
 - **Location Mapping:** The current implementation uses a configured landmark/coordinate mapping rather than a full production geocoding service.
-- **No Live Deployment:** The repository currently marks the live demo as `NOT DEPLOYED`.
 - **No Production Dispatch Integration:** Recommended actions are decision-support outputs and are not directly connected to 911, EMS, fire, police, or municipal dispatch systems.
 - **Threshold Tuning:** Similarity and priority thresholds require further validation against large, real-world crisis datasets before production use.
 - **Human Oversight Required:** AI-generated classifications, evidence summaries, and recommendations should support—not replace—trained emergency personnel.
