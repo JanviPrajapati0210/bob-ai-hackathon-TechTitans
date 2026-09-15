@@ -94,3 +94,8 @@ logs/
 .terraform/
 *.tfstate
 *.tfstate.backup
+
+# -- SQLite / Database files -------------------------------------------------
+*.db
+*.sqlite
+*.sqlite3

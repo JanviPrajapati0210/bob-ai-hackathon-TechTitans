@@ -39,7 +39,7 @@ submission:
   key_features:                        # REQUIRED — List 3 to 5 specific features you implemented
     - "Multi-channel unstructured text ingestion with NLP information extraction (type, location, urgency, people affected)"
     - "Dual-engine intelligence: IBM watsonx.ai Granite 3.0 foundation models with resilient local NLP fallback"
-    - "Text embedding similarity clustering that eliminates duplicate tickets and synthesizes corroborating AI evidence"
+    - "TF-IDF N-gram cosine similarity clustering that eliminates duplicate tickets and synthesizes corroborating AI evidence"
     - "Dynamic multi-factor priority scoring algorithm ranking emergencies by human life threat and crowd corroboration"
     - "Tactical Disaster Geo-Grid Map with real-time severity pins, pulse radar alerts, and recommended emergency response actions"                              # e.g., "Real-time pipeline anomaly detection using watsonx.ai"
 

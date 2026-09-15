@@ -1,79 +1,191 @@
-# Setup Guide
+# Setup Guide — CrisisAI
 
-> **This file is read by the automated evaluation pipeline. Be precise and complete.**
+> CrisisAI converts noisy emergency reports into consolidated, prioritized incidents for emergency command-center decision support.
+
+---
 
 ## Prerequisites
 
-Before you begin, ensure you have the following installed:
-
-- [ ] [e.g., Python 3.11+]
-- [ ] [e.g., Node.js 18+]
-- [ ] [e.g., Docker Desktop]
-- [ ] [e.g., An IBM Cloud account with watsonx.ai access]
-
-## Environment Variables
-
-Copy `.env.example` to `.env` and fill in the values:
-
-```bash
-cp .env.example .env
-```
-
-| Variable | Description | Required |
+| Tool | Minimum version | Notes |
 |---|---|---|
-| `WATSONX_API_KEY` | Your IBM watsonx.ai API key | Yes |
-| `WATSONX_PROJECT_ID` | Your watsonx.ai project ID | Yes |
-| `DATABASE_URL` | PostgreSQL connection string | Yes |
-| `SLACK_WEBHOOK_URL` | Slack webhook for alerts | No |
+| Python | 3.10+ | 3.11 or 3.12 recommended |
+| Node.js | 18+ | LTS release preferred |
+| npm | 9+ | Bundled with Node.js 18+ |
+| Git | any | For cloning |
 
-## Installation
+IBM credentials are **not required** for local demonstration. The application runs fully offline using the built-in local NLP engine.
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/[your-org]/[your-repo].git
-cd [your-repo]
+---
 
-# 2. Install backend dependencies
-[your command — e.g.: pip install -r requirements.txt]
-
-# 3. Install frontend dependencies (if applicable)
-[your command — e.g.: cd frontend && npm install]
-
-# 4. Set up the database (if applicable)
-[your command — e.g.: python manage.py migrate]
-```
-
-## Running the Application
+## 1. Clone the Repository
 
 ```bash
-# Start the backend
-[your command — e.g.: uvicorn app.main:app --reload]
-
-# Start the frontend (in a separate terminal, if applicable)
-[your command — e.g.: cd frontend && npm run dev]
+git clone https://github.com/<your-org>/<your-repo>.git
+cd <your-repo>
 ```
 
-The application will be available at: `http://localhost:[PORT]`
+---
 
-## Running Tests
+## 2. Backend Setup
+
+```powershell
+# From the repository root:
+cd src/backend
+pip install -r requirements.txt
+```
+
+### Environment Variables
+
+Copy the example environment file:
+
+```powershell
+# Windows PowerShell (from repository root):
+Copy-Item src\.env.example src\.env
+
+# macOS / Linux:
+cp src/.env.example src/.env
+```
+
+The default `.env` settings use `AI_MODE=local` and `DATABASE_URL=sqlite:///./emergency.db`.
+No changes are required for local demonstration.
+
+| Variable | Default | Required |
+|---|---|---|
+| `AI_MODE` | `local` | No — set to `watsonx` to enable IBM Granite |
+| `WATSONX_APIKEY` | *(empty)* | Only when `AI_MODE=watsonx` |
+| `WATSONX_PROJECT_ID` | *(empty)* | Only when `AI_MODE=watsonx` |
+| `WATSONX_URL` | `https://us-south.ml.cloud.ibm.com` | Only when `AI_MODE=watsonx` |
+| `WATSONX_MODEL_ID` | `ibm/granite-3-8b-instruct` | Only when `AI_MODE=watsonx` |
+| `DATABASE_URL` | `sqlite:///./emergency.db` | No |
+| `SIMILARITY_THRESHOLD` | `0.55` | No |
+| `PORT` | `8000` | No |
+
+### Start the Backend
+
+```powershell
+# From repository root:
+cd src/backend
+python -m uvicorn app.main:app --reload --port 8000
+```
+
+Verify the backend is running:
+
+```
+http://localhost:8000          → {"status": "online", ...}
+http://localhost:8000/docs     → Interactive Swagger API documentation
+```
+
+---
+
+## 3. Frontend Setup
+
+Open a **separate terminal**:
+
+```powershell
+# From repository root:
+cd src/frontend
+npm install
+npm run dev
+```
+
+Dashboard available at:
+
+```
+http://localhost:5173
+```
+
+### Build for production (optional verification):
+
+```powershell
+cd src/frontend
+npm run build
+```
+
+---
+
+## 4. Running the 50-Report Demo
+
+With the backend running, load the full demonstration dataset via the dashboard
+**"Seed Demo Data"** button, or call the API directly:
 
 ```bash
-[your test command — e.g.: pytest tests/ -v]
+curl -X POST http://localhost:8000/api/demo/seed
 ```
 
-## Quick Demo (Optional)
+Expected response:
 
-If you have a demo script or sample data to showcase the project quickly:
-
-```bash
-[e.g.: python demo/seed_demo_data.py]
-[e.g.: open http://localhost:8000/demo]
+```json
+{
+  "message": "Demo initialized: 50 reports processed into 18 unique incidents.",
+  "total_reports_processed": 50,
+  "total_unique_incidents": 18,
+  "breakdown": { "critical": 5, "high": 6, "medium": 4, "low": 3 }
+}
 ```
 
-## Troubleshooting
+---
+
+## 5. IBM watsonx.ai Configuration (Optional)
+
+To enable IBM Granite LLM-based extraction, set the following in `src/.env`:
+
+```env
+AI_MODE=watsonx
+WATSONX_APIKEY=<your IBM Cloud API key>
+WATSONX_PROJECT_ID=<your watsonx.ai project ID>
+WATSONX_URL=https://us-south.ml.cloud.ibm.com
+WATSONX_MODEL_ID=ibm/granite-3-8b-instruct
+```
+
+When `AI_MODE=watsonx` and credentials are valid, the backend uses IBM Granite for
+structured NLP extraction. If the watsonx.ai call fails for any reason, the system
+automatically falls back to the local NLP engine — the application never crashes.
+
+When `AI_MODE=local` (default), the backend uses the built-in deterministic
+rule/pattern-based extraction engine. No external API calls are made.
+
+**Never commit real API keys to GitHub.**
+
+---
+
+## 6. Running Tests
+
+```powershell
+# From repository root:
+python src/backend/tests/test_api.py
+```
+
+The test suite covers:
+
+- NLP extraction (flood, road blockage, observation examples)
+- Similarity-based deduplication
+- 50-report → 18-incident clustering
+- Stats and priority-ranking endpoints
+- Railway Station flood incident: 11 reports merged, Critical urgency
+
+Expected output: `OK` (all tests pass).
+
+### Run ML Evaluation
+
+```powershell
+# From repository root:
+python src/backend/tests/evaluate_model.py
+```
+
+Evaluates urgency classification accuracy, incident-type accuracy, and clustering
+quality (ARI) on the 50-record evaluation dataset.
+
+---
+
+## 7. Troubleshooting
 
 | Issue | Solution |
 |---|---|
-| [e.g., `ModuleNotFoundError`] | [e.g., Run `pip install -r requirements.txt` again] |
-| [e.g., Database connection refused] | [e.g., Ensure PostgreSQL is running: `docker compose up db`] |
-| [e.g., watsonx.ai 401 error] | [e.g., Check `WATSONX_API_KEY` in your `.env` file] |
+| `ModuleNotFoundError: No module named 'app'` | Run from `src/backend/`, not from `src/backend/app/` |
+| `ModuleNotFoundError: No module named 'fastapi'` | Run `pip install -r src/backend/requirements.txt` |
+| `Address already in use` on port 8000 | Change port: `--port 8001`, and update `src/frontend/src/services/api.js` |
+| Frontend `ERR_CONNECTION_REFUSED` | Ensure backend is running on port 8000 before starting the frontend |
+| `WATSONX_APIKEY not set` warning in logs | Normal in local mode; set `AI_MODE=local` in `.env` to suppress |
+| `sqlite3.OperationalError` on first run | The database is created automatically on first start; no migration needed |
+| `npm install` fails | Ensure Node.js 18+ is installed: `node --version` |
+| Tests fail with `test_emergency.db` error | The test suite creates and deletes its own in-memory test DB automatically |
