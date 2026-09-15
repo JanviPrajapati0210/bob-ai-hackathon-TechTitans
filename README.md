@@ -10,7 +10,7 @@
 
 | Field | Value |
 |---|---|
-| **Team Name** | CrisisAI Team |
+| **Team Name** | TechTitans |
 | **Track** | AI |
 | **Team Lead** | Janvi Prajapati — 24aiml052@charusat.edu.in |
 | **Members** | Krima Parmar, Hemangi Parmar, Vidhi Patel |
