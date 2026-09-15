@@ -32,8 +32,8 @@ submission:
 
   solution_summary: >                  # REQUIRED — 1-3 sentences. What did you build?
     CrisisAI is an intelligent emergency operations platform that automates report ingestion, extracts structured
-    incident telemetry using NLP (IBM watsonx.ai Granite), deduplicates corroborating reports using N-gram text
-    embeddings and cosine similarity clustering, ranks incidents by human life risk, and visualizes live actionable
+    incident telemetry using NLP (IBM watsonx.ai Granite), deduplicates corroborating reports using TF-IDF N-gram
+    vectors and cosine similarity, ranks incidents by human life risk, and visualizes live actionable
     intelligence on an interactive command center dashboard.
 
   key_features:                        # REQUIRED — List 3 to 5 specific features you implemented

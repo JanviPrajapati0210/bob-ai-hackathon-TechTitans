@@ -28,7 +28,7 @@ Traditional systems also tend to rely on keywords, timestamps, or static categor
 
 ## 💡 Solution
 
-**CrisisAI** is an intelligent emergency operations platform that converts raw emergency reports into structured, prioritized, and deduplicated incidents. It uses NLP with **IBM watsonx.ai Granite** or a resilient local fallback to extract incident information, uses TF-IDF N-gram embeddings and cosine similarity to cluster corroborating reports, and applies multi-factor priority scoring to rank emergencies by human life risk.
+**CrisisAI** is an intelligent emergency operations platform that converts raw emergency reports into structured, prioritized, and deduplicated incidents. It uses NLP with **IBM watsonx.ai Granite** or a resilient local fallback to extract incident information, uses TF-IDF N-gram vectors and cosine similarity to cluster corroborating reports, and applies multi-factor priority scoring to rank emergencies by human life risk.
 
 The resulting intelligence is presented through an interactive **Emergency Command Center dashboard** with live incident counters, priority cards, tactical map visualization, AI evidence summaries, and recommended response actions.
 
@@ -38,7 +38,7 @@ The resulting intelligence is presented through an interactive **Emergency Comma
 
 - **🧠 AI-Powered NLP Extraction:** Extracts incident type, location, urgency, people at risk, people count, and operational category from unstructured emergency text.
 - **🤖 IBM watsonx.ai Granite Integration:** Supports IBM Granite foundation models through the watsonx.ai API, with a local NLP fallback for reliable offline execution.
-- **🔗 Intelligent Deduplication:** Uses TF-IDF N-gram embeddings and cosine similarity to identify reports describing the same incident.
+- **🔗 Intelligent Deduplication:** Uses TF-IDF N-gram vectors and cosine similarity to identify reports describing the same incident.
 - **📊 Multi-Factor Priority Scoring:** Combines urgency, incident category, human-life risk, vulnerable people, and corroborating report volume.
 - **🗺️ Tactical Disaster Geo-Grid:** Displays incidents geographically with severity indicators and critical-alert radar effects.
 - **🚨 Actionable AI Evidence:** Summarizes corroborating reports and provides recommended emergency response actions.
@@ -56,7 +56,7 @@ The resulting intelligence is presented through an interactive **Emergency Comma
 | **Languages** | Python, JavaScript |
 | **Frontend** | React 19, Vite 8, Lucide React, CSS3 |
 | **Backend** | FastAPI, Uvicorn, Pydantic |
-| **AI / ML** | IBM watsonx.ai Granite 3.0, scikit-learn, TF-IDF N-gram embeddings, cosine similarity |
+| **AI / ML** | IBM watsonx.ai Granite 3.0, scikit-learn, TF-IDF N-gram vectors, cosine similarity |
 | **IBM Technologies** | IBM watsonx.ai, IBM Granite foundation model |
 | **Database** | SQLite, SQLAlchemy 2.0 |
 | **Testing** | pytest, custom ML evaluation suite |

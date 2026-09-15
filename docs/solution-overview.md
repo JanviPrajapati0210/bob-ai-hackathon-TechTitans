@@ -111,7 +111,7 @@ See `src/bob_sessions/task_session_report_day1_day3.md` for the full session log
 | Urgency classification accuracy | 100% on the 50-record evaluation set |
 | Urgency Macro F1 | 100% on the 50-record evaluation set |
 | Incident-type accuracy | 98% on the 50-record evaluation set |
-| Incident-type Macro F1 | ~97.78% on the 50-record evaluation set |
+| Incident-type Macro F1 | ~97.04% on the 50-record evaluation set |
 | Clustering ARI | 1.000 across the 18 known incident groups |
 | Ground-truth incidents | 18 |
 | AI-discovered incidents | 18 |

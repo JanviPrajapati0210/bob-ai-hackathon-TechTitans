@@ -3,17 +3,17 @@
 **Project**: CrisisAI - Emergency Prioritization & Deduplication Command Center  
 **Theme**: Turn Idea into Impact Faster (IBM Bob Hackathon)  
 **Track**: Proof of Concept / AI Incident Management  
-**AI Engines**: IBM watsonx.ai Granite (`ibm/granite-3-8b-instruct`) + Local NLP & Embedding Engine  
+**AI Engines**: IBM watsonx.ai Granite (`ibm/granite-3-8b-instruct`) + Local NLP Engine (rule/pattern-based fallback)  
 
 ---
 
 ## Task Summary
 
 ### Session Overview
-- **Objective**: Design, architect, and implement a full-stack, multi-component AI emergency response management system capable of processing 50+ multi-channel citizen emergency reports, deduplicating them into 18 clustered incidents using text similarity embeddings, determining real-time urgency, and ranking incidents on a live tactical dashboard.
+- **Objective**: Design, architect, and implement a full-stack, multi-component AI emergency response management system capable of processing 50+ multi-channel citizen emergency reports, deduplicating them into 18 clustered incidents using TF-IDF N-gram cosine similarity, determining real-time urgency, and ranking incidents on a live tactical dashboard.
 - **Team Division**:
   - Person 1: AI / NLP Information Extraction (Incident Classification, Urgency Analysis, Structured JSON)
-  - Person 2: Similarity & Deduplication Engine (Embeddings, Cosine Similarity, Smart Clustering, Multi-Report AI Evidence Synthesis)
+  - Person 2: Similarity & Deduplication Engine (TF-IDF N-gram Vectors, Cosine Similarity, Smart Clustering, Multi-Report AI Evidence Synthesis)
   - Person 3: Backend & Data Management (FastAPI, SQLite, Priority Ranker, Endpoints)
   - Person 4: Frontend Command Center (React, Vite, Responsive Tactical Map, Incident Cards, Live Report Ingestion)
 

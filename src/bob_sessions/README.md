@@ -10,7 +10,7 @@ Per pages 18–19 of the **IBM Bob Hackathon Guide**, all project submissions mu
 
 - `task_session_report_day1_day3.md`: The complete chronological development log documenting how IBM Bob assisted across Days 1, 2, and 3:
   - Day 1: NLP Information Extraction & FastAPI Backend
-  - Day 2: Text Embeddings, Cosine Similarity Clustering & Frontend Command Center
+  - Day 2: TF-IDF N-gram Similarity, Cosine Similarity Clustering & Frontend Command Center
   - Day 3: End-to-end Pipeline Integration, Automated Testing & Demo Simulation
 - `screenshots/`: (Place your exported PNG/JPEG screenshots of the Bob IDE task session consumption summary here prior to repo submission).
 
