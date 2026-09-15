@@ -396,10 +396,7 @@ The included evaluation suite is designed to measure:
 ### Demo Video
 
 The repository currently contains the configured demo-video reference in:
-
-```text
-demo/demo-video-link.txt
-```
+[**🚀 Open CrisisAI Demo Video**](https://drive.google.com/file/d/1UDNJ3Q7rSFbiHyWJFEiTQMn7W_CElucY/view?usp=drivesdk)
 
 
 ### 🌐 Live Demo
